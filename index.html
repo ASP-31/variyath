@@ -8,213 +8,305 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .hero-clip {
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+        /* ── Mobile-first nav ── */
+        #mobile-menu {
+            display: none;
+        }
+        #mobile-menu.open {
+            display: flex;
         }
 
-        @media (max-width: 768px) {
-            .hero-clip {
-                clip-path: none;
+        /* ── Hero: full-height on desktop, auto-height stacked on mobile ── */
+        .hero-panel {
+            min-height: 55vw;          /* landscape feel on desktop */
+        }
+        @media (max-width: 767px) {
+            .hero-panel {
+                min-height: 60vw;      /* taller crop on mobile */
             }
         }
+
+        /* ── Sanitaryware title duplicate fix ── */
+        .dup { display: none; }
+
+        /* ── Smooth hover lift ── */
+        .card-lift { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .card-lift:hover { transform: translateY(-6px); box-shadow: 0 12px 28px rgba(0,0,0,0.10); }
+
+        /* ── Category card images ── */
+        .cat-card img { transition: transform 0.5s ease; }
+        .cat-card:hover img { transform: scale(1.08); }
     </style>
 </head>
 
 <body class="bg-gray-50 font-sans">
 
-    <nav class="flex items-center justify-between px-8 py-4 bg-white shadow-sm">
-        <div class="text-2xl font-bold text-blue-900 underline decoration-yellow-500">VARIYATH <span
-                class="text-gray-600">BUILDWARES</span></div>
-        <div class="hidden md:flex space-x-8 font-medium text-gray-700">
-            <a href="#" class="hover:text-blue-600">Home</a>
-            <a href="#" class="hover:text-blue-600">Hardware & Electrical</a>
-            <a href="#" class="hover:text-blue-600">Sanitaryware</a>
-            <a href="#" class="hover:text-blue-600">Contact</a>
+    <!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+    <nav class="flex items-center justify-between px-5 sm:px-8 py-4 bg-white shadow-sm sticky top-0 z-50">
+        <!-- Logo -->
+        <div class="text-xl sm:text-2xl font-bold text-blue-900 underline decoration-yellow-500 leading-tight">
+            VARIYATH <span class="text-gray-600">BUILDWARES</span>
         </div>
-        <button class="bg-blue-900 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-800 transition">Enquire
-            Now</button>
+
+        <!-- Desktop links -->
+        <div class="hidden md:flex space-x-8 font-medium text-gray-700">
+            <a href="#" class="hover:text-blue-600 transition">Home</a>
+            <a href="#" class="hover:text-blue-600 transition">Hardware & Electrical</a>
+            <a href="#" class="hover:text-blue-600 transition">Sanitaryware</a>
+            <a href="#" class="hover:text-blue-600 transition">Contact</a>
+        </div>
+
+        <!-- Desktop CTA + Mobile hamburger -->
+        <div class="flex items-center gap-3">
+            <button class="bg-blue-900 text-white px-4 sm:px-5 py-2 rounded-lg font-semibold hover:bg-blue-800 transition text-sm sm:text-base">
+                Enquire Now
+            </button>
+            <!-- Hamburger (mobile only) -->
+            <button id="hamburger" class="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5"
+                aria-label="Open menu" aria-expanded="false">
+                <span class="block w-6 h-0.5 bg-gray-800 transition-all"></span>
+                <span class="block w-6 h-0.5 bg-gray-800 transition-all"></span>
+                <span class="block w-4 h-0.5 bg-gray-800 transition-all"></span>
+            </button>
+        </div>
     </nav>
 
-    <header class="relative h-[85vh] w-full flex flex-col md:flex-row overflow-hidden">
+    <!-- Mobile dropdown menu -->
+    <div id="mobile-menu"
+        class="flex-col bg-white border-b border-gray-100 shadow-md px-6 py-4 space-y-4 text-gray-700 font-medium md:hidden">
+        <a href="#" class="block hover:text-blue-600 transition py-1">Home</a>
+        <a href="#" class="block hover:text-blue-600 transition py-1">Hardware &amp; Electrical</a>
+        <a href="#" class="block hover:text-blue-600 transition py-1">Sanitaryware</a>
+        <a href="#" class="block hover:text-blue-600 transition py-1">Contact</a>
+    </div>
 
-        <div class="relative w-full md:w-1/2 h-full group overflow-hidden">
+    <!-- ═══════════════════════════════ HERO ══════════════════════════════ -->
+    <header class="flex flex-col md:flex-row w-full overflow-hidden relative">
+
+        <!-- Panel 1: Hardware -->
+        <div class="hero-panel cat-card relative w-full md:w-1/2 overflow-hidden group">
             <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&q=80&w=1200"
                 alt="Industrial Hardware"
-                class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105">
-            <div class="absolute inset-0 bg-blue-900/40 group-hover:bg-blue-900/30 transition-all"></div>
-            <div class="relative h-full flex flex-col justify-center px-12 text-white z-10">
-                <span
-                    class="uppercase tracking-widest text-sm font-bold bg-yellow-500 text-blue-900 px-3 py-1 w-fit mb-4">Building
-                    Essentials</span>
-                <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Industrial <br> Hardware</h1>
-                <p class="text-lg opacity-90 mb-6 max-w-sm">Premium PVC pipes, electrical fittings, and tools for
-                    long-lasting foundations.</p>
+                class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-blue-900/50 group-hover:bg-blue-900/35 transition-all duration-300"></div>
+            <div class="relative h-full flex flex-col justify-end md:justify-center px-8 sm:px-12 py-10 text-white z-10">
+                <span class="uppercase tracking-widest text-xs sm:text-sm font-bold bg-yellow-500 text-blue-900 px-3 py-1 w-fit mb-3 sm:mb-4">
+                    Building Essentials
+                </span>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4 leading-tight">
+                    Industrial <br> Hardware
+                </h1>
+                <p class="text-sm sm:text-base md:text-lg opacity-90 mb-5 max-w-sm">
+                    Premium PVC pipes, electrical fittings, and tools for long-lasting foundations.
+                </p>
                 <a href="#"
-                    class="border-2 border-white px-8 py-3 w-fit font-bold hover:bg-white hover:text-blue-900 transition uppercase tracking-tighter">View
-                    Hardware</a>
+                    class="border-2 border-white px-6 sm:px-8 py-2.5 sm:py-3 w-fit font-bold hover:bg-white hover:text-blue-900 transition uppercase tracking-tight text-sm sm:text-base">
+                    View Hardware
+                </a>
             </div>
         </div>
 
-        <div class="relative w-full md:w-1/2 h-full group overflow-hidden">
+        <!-- Divider (desktop only) -->
+        <div class="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 h-full w-2 bg-white/30 backdrop-blur-sm z-20"></div>
+
+        <!-- Panel 2: Sanitaryware -->
+        <div class="hero-panel cat-card relative w-full md:w-1/2 overflow-hidden group">
             <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1200"
                 alt="Luxury Sanitaryware"
-                class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105">
-            <div class="absolute inset-0 bg-gray-900/20 group-hover:bg-gray-900/10 transition-all"></div>
-            <div class="relative h-full flex flex-col justify-center px-12 text-gray-900 md:text-white z-10">
-                <span
-                    class="uppercase tracking-widest text-sm font-bold bg-white text-gray-900 px-3 py-1 w-fit mb-4">Interior
-                    Finishing</span>
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-4 text-white">Modern <br> Sanitaryware</h2>
-                <p class="text-lg opacity-90 mb-6 max-w-sm text-white">Designer faucets, premium ceramics, and elegant
-                    bathroom solutions.</p>
+                class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gray-900/30 group-hover:bg-gray-900/15 transition-all duration-300"></div>
+            <div class="relative h-full flex flex-col justify-end md:justify-center px-8 sm:px-12 py-10 text-white z-10">
+                <span class="uppercase tracking-widest text-xs sm:text-sm font-bold bg-white text-gray-900 px-3 py-1 w-fit mb-3 sm:mb-4">
+                    Interior Finishing
+                </span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4 leading-tight">
+                    Modern <br> Sanitaryware
+                </h2>
+                <p class="text-sm sm:text-base md:text-lg opacity-90 mb-5 max-w-sm">
+                    Designer faucets, premium ceramics, and elegant bathroom solutions.
+                </p>
                 <a href="#"
-                    class="bg-white text-gray-900 px-8 py-3 w-fit font-bold hover:bg-gray-100 transition uppercase tracking-tighter">View
-                    Gallery</a>
+                    class="bg-white text-gray-900 px-6 sm:px-8 py-2.5 sm:py-3 w-fit font-bold hover:bg-gray-100 transition uppercase tracking-tight text-sm sm:text-base">
+                    View Gallery
+                </a>
             </div>
-        </div>
-
-        <div
-            class="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 h-full w-2 bg-white/30 backdrop-blur-sm z-20">
         </div>
     </header>
 
+    <!-- ═══════════════════════════════ BRANDS ════════════════════════════ -->
     <section class="py-10 bg-white border-b">
         <div class="container mx-auto px-4">
-            <p class="text-center text-gray-400 font-bold uppercase tracking-widest text-xs mb-8">Authorized Dealers of
-                Global Brands</p>
-            <div
-                class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all">
-                <span class="text-2xl font-black text-gray-400">SUPREME</span>
-                <span class="text-2xl font-black text-gray-400">FINOLEX</span>
-                <span class="text-2xl font-black text-gray-400">HAVELLS</span>
-                <span class="text-2xl font-black text-gray-400">CROMPTON</span>
-                <span class="text-2xl font-black text-gray-400">ASTRAL</span>
+            <p class="text-center text-gray-400 font-bold uppercase tracking-widest text-xs mb-6 sm:mb-8">
+                Authorized Dealers of Global Brands
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-6 sm:gap-10 md:gap-12 opacity-60 hover:opacity-90 transition-all duration-500">
+                <span class="text-lg sm:text-2xl font-black text-gray-400">SUPREME</span>
+                <span class="text-lg sm:text-2xl font-black text-gray-400">FINOLEX</span>
+                <span class="text-lg sm:text-2xl font-black text-gray-400">HAVELLS</span>
+                <span class="text-lg sm:text-2xl font-black text-gray-400">CROMPTON</span>
+                <span class="text-lg sm:text-2xl font-black text-gray-400">ASTRAL</span>
             </div>
         </div>
     </section>
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div
-                    class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-blue-900 transition hover:-translate-y-2">
-                    <i class="fa-solid fa-truck-fast text-4xl text-blue-900 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Fast Delivery</h3>
-                    <p class="text-gray-600">On-time material delivery across Kochi for all your construction needs.</p>
+
+    <!-- ═══════════════════════════════ USP CARDS ═════════════════════════ -->
+    <section class="py-12 sm:py-16 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="card-lift bg-white p-6 sm:p-8 rounded-xl shadow-sm border-b-4 border-blue-900">
+                    <i class="fa-solid fa-truck-fast text-3xl sm:text-4xl text-blue-900 mb-4"></i>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">Fast Delivery</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">On-time material delivery across Kochi for all your construction needs.</p>
                 </div>
-                <div
-                    class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-yellow-500 transition hover:-translate-y-2">
-                    <i class="fa-solid fa-tags text-4xl text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Affordable Pricing</h3>
-                    <p class="text-gray-600">Premium brands at competitive wholesale and retail prices.</p>
+                <div class="card-lift bg-white p-6 sm:p-8 rounded-xl shadow-sm border-b-4 border-yellow-500">
+                    <i class="fa-solid fa-tags text-3xl sm:text-4xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">Affordable Pricing</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">Premium brands at competitive wholesale and retail prices.</p>
                 </div>
-                <div
-                    class="bg-white p-8 rounded-xl shadow-sm border-b-4 border-blue-900 transition hover:-translate-y-2">
-                    <i class="fa-solid fa-award text-4xl text-blue-900 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Trusted Quality</h3>
-                    <p class="text-gray-600">Authorized dealers for Supreme, Finolex, Havells, and more.</p>
+                <div class="card-lift bg-white p-6 sm:p-8 rounded-xl shadow-sm border-b-4 border-blue-900">
+                    <i class="fa-solid fa-award text-3xl sm:text-4xl text-blue-900 mb-4"></i>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">Trusted Quality</h3>
+                    <p class="text-gray-600 text-sm sm:text-base">Authorized dealers for Supreme, Finolex, Havells, and more.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6">
-            <div class="flex justify-between items-end mb-12">
+    <!-- ═══════════════════════════════ CATEGORIES ════════════════════════ -->
+    <section class="py-14 sm:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-8 sm:mb-12 gap-2">
                 <div>
-                    <h2 class="text-3xl font-black text-gray-900 uppercase">Explore Our Categories</h2>
-                    <p class="text-gray-500 mt-2">Everything you need from foundation to finishing.</p>
+                    <h2 class="text-2xl sm:text-3xl font-black text-gray-900 uppercase">Explore Our Categories</h2>
+                    <p class="text-gray-500 mt-1 sm:mt-2 text-sm sm:text-base">Everything you need from foundation to finishing.</p>
                 </div>
-                <span class="hidden md:block text-sm font-bold text-blue-900 tracking-widest uppercase">Select a
-                    Department</span>
+                <span class="hidden md:block text-sm font-bold text-blue-900 tracking-widest uppercase">Select a Department</span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="group relative h-80 overflow-hidden rounded-2xl bg-gray-200">
+            <!-- 2-col on mobile, 4-col on large -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+
+                <!-- Plumbing & Pipes -->
+                <div class="cat-card group relative h-56 sm:h-72 lg:h-80 overflow-hidden rounded-2xl bg-gray-200">
                     <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=600"
-                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        alt="Plumbing & Pipes"
+                        class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h4 class="text-xl font-bold">Plumbing & Pipes</h4>
-                        <p class="text-sm opacity-80 mb-3">Supreme & Finolex PVC/CPVC</p>
-                        <button
-                            class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-4 py-2 rounded-full hover:bg-white hover:text-black transition">Coming
-                            Soon</button>
+                    <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
+                        <h4 class="text-base sm:text-xl font-bold leading-tight">Plumbing &amp; Pipes</h4>
+                        <p class="text-xs sm:text-sm opacity-80 mb-2 sm:mb-3">Supreme &amp; Finolex PVC/CPVC</p>
+                        <button class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:bg-white hover:text-black transition">
+                            Coming Soon
+                        </button>
                     </div>
                 </div>
 
-                <div class="group relative h-80 overflow-hidden rounded-2xl bg-gray-200">
+                <!-- Electrical Fittings -->
+                <div class="cat-card group relative h-56 sm:h-72 lg:h-80 overflow-hidden rounded-2xl bg-gray-200">
                     <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=600"
-                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        alt="Electrical Fittings"
+                        class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h4 class="text-xl font-bold">Electrical Fittings</h4>
-                        <p class="text-sm opacity-80 mb-3">Wires, Switches & Fans</p>
-                        <button
-                            class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-4 py-2 rounded-full hover:bg-white hover:text-black transition">Coming
-                            Soon</button>
+                    <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
+                        <h4 class="text-base sm:text-xl font-bold leading-tight">Electrical Fittings</h4>
+                        <p class="text-xs sm:text-sm opacity-80 mb-2 sm:mb-3">Wires, Switches &amp; Fans</p>
+                        <button class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:bg-white hover:text-black transition">
+                            Coming Soon
+                        </button>
                     </div>
                 </div>
 
-                <div class="group relative h-80 overflow-hidden rounded-2xl bg-gray-200">
+                <!-- Sanitaryware (duplicate h4 removed) -->
+                <div class="cat-card group relative h-56 sm:h-72 lg:h-80 overflow-hidden rounded-2xl bg-gray-200">
                     <img src="https://images.unsplash.com/photo-1620627812624-38aa77343c27?auto=format&fit=crop&q=80&w=600"
-                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        alt="Sanitaryware"
+                        class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h4 class="text-xl font-bold">Sanitaryware</h4>
-                        <h4 class="text-xl font-bold">Sanitaryware</h4>
-                        <p class="text-sm opacity-80 mb-3">Basins, Closets & CP Fittings</p>
-                        <button
-                            class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-4 py-2 rounded-full hover:bg-white hover:text-black transition">Coming
-                            Soon</button>
+                    <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
+                        <h4 class="text-base sm:text-xl font-bold leading-tight">Sanitaryware</h4>
+                        <p class="text-xs sm:text-sm opacity-80 mb-2 sm:mb-3">Basins, Closets &amp; CP Fittings</p>
+                        <button class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:bg-white hover:text-black transition">
+                            Coming Soon
+                        </button>
                     </div>
                 </div>
 
-                <div class="group relative h-80 overflow-hidden rounded-2xl bg-gray-200">
+                <!-- Water Tanks & Pumps -->
+                <div class="cat-card group relative h-56 sm:h-72 lg:h-80 overflow-hidden rounded-2xl bg-gray-200">
                     <img src="https://images.unsplash.com/photo-1542013936693-88463833c354?auto=format&fit=crop&q=80&w=600"
-                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        alt="Water Tanks & Pumps"
+                        class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h4 class="text-xl font-bold">Water Tanks & Pumps</h4>
-                        <p class="text-sm opacity-80 mb-3">Storage & Pumping Solutions</p>
-                        <button
-                            class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-4 py-2 rounded-full hover:bg-white hover:text-black transition">Coming
-                            Soon</button>
+                    <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white">
+                        <h4 class="text-base sm:text-xl font-bold leading-tight">Water Tanks &amp; Pumps</h4>
+                        <p class="text-xs sm:text-sm opacity-80 mb-2 sm:mb-3">Storage &amp; Pumping Solutions</p>
+                        <button class="text-xs font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full hover:bg-white hover:text-black transition">
+                            Coming Soon
+                        </button>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-white py-12 px-8">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+    <!-- ═══════════════════════════════ FOOTER ════════════════════════════ -->
+    <footer class="bg-gray-900 text-white py-10 sm:py-12 px-5 sm:px-8">
+        <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
             <div>
-                <h3 class="text-2xl font-bold mb-4">VARIYATH BUILDWARES</h3>
-                <p class="text-gray-400">Leading dealers in Premium Sanitaryware, Hardware, and Electrical items in
-                    Kochi since 2002.</p>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">VARIYATH BUILDWARES</h3>
+                <p class="text-gray-400 text-sm sm:text-base">Leading dealers in Premium Sanitaryware, Hardware, and Electrical items in Kochi since 2002.</p>
             </div>
             <div>
-                <h4 class="text-lg font-bold mb-4">Quick Links</h4>
-                <ul class="text-gray-400 space-y-2">
+                <h4 class="text-base sm:text-lg font-bold mb-3 sm:mb-4">Quick Links</h4>
+                <ul class="text-gray-400 space-y-2 text-sm sm:text-base">
                     <li><a href="#" class="hover:text-white transition">Hardware Catalog</a></li>
                     <li><a href="#" class="hover:text-white transition">Sanitaryware Designs</a></li>
                     <li><a href="#" class="hover:text-white transition">Brands We Deal</a></li>
                     <li><a href="#" class="hover:text-white transition">Request Quote</a></li>
                 </ul>
             </div>
-            <div>
-                <h4 class="text-lg font-bold mb-4">Visit Our Store</h4>
-                <p class="text-gray-400">Pipeline Rd, Thoppil, Thrikkakara<br>Edappally, Kochi, Kerala 682021</p>
-                <div class="mt-4 flex space-x-4">
-                    <a href="#" class="text-2xl hover:text-blue-400"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" class="text-2xl hover:text-blue-600"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" class="text-2xl hover:text-red-500"><i class="fa-brands fa-instagram"></i></a>
+            <div class="sm:col-span-2 md:col-span-1">
+                <h4 class="text-base sm:text-lg font-bold mb-3 sm:mb-4">Visit Our Store</h4>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    Pipeline Rd, Thoppil, Thrikkakara<br>
+                    Edappally, Kochi, Kerala 682021
+                </p>
+                <div class="mt-4 flex space-x-5">
+                    <a href="#" class="text-2xl hover:text-green-400 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" class="text-2xl hover:text-blue-500 transition"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-2xl hover:text-pink-400 transition"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </div>
-        <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+        <div class="border-t border-gray-800 mt-10 sm:mt-12 pt-6 sm:pt-8 text-center text-gray-500 text-xs sm:text-sm">
             &copy; 2026 Variyath Buildwares. All rights reserved.
         </div>
     </footer>
-</body>
 
+    <!-- ═══════════════════════════════ JS ═══════════════════════════════ -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            hamburger.setAttribute('aria-expanded', isOpen);
+            // Animate the three bars → X
+            const bars = hamburger.querySelectorAll('span');
+            if (isOpen) {
+                bars[0].style.transform = 'translateY(8px) rotate(45deg)';
+                bars[1].style.opacity = '0';
+                bars[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+                bars[2].style.width = '24px';
+            } else {
+                bars[0].style.transform = '';
+                bars[1].style.opacity = '';
+                bars[2].style.transform = '';
+                bars[2].style.width = '';
+            }
+        });
+    </script>
+
+</body>
 </html>
